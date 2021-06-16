@@ -3,8 +3,8 @@ const handlebars = require('express-handlebars')
 const app = express()
 const port = 3000
 
-app.engine('handlebars', handlebars())
-app.set('view engine', 'handlebars')
+app.engine('hbs', handlebars({ defaultLayout: 'main', extname: '.hbs' }))
+app.set('view engine', 'hbs')
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
