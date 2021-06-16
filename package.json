@@ -21,8 +21,10 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "chai": "^4.2.0",
+    "connect-flash": "^0.1.1",
     "express": "^4.17.1",
     "express-handlebars": "^5.3.2",
+    "express-session": "^1.17.2",
     "mocha": "^8.2.0",
     "mysql2": "^2.2.5",
     "sequelize": "^6.3.5",
