@@ -1,13 +1,11 @@
 # README
 
-1. Fork
-2. git clone
-3. 更改專案名稱
-
 ## 初始化
 ### Initialize
 ```
-git remote add upstream https://github.com/ALPHACamp/forum-express-grading.git  # 建立上游連線
+git clone https://github.com/your_github_name/forum-express-2020
+cd forum-express
+git remote add upstream https://github.com/ALPHACamp/forum-express-2020.git  # 建立上游連線
 npm install
 ```
 
