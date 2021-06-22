@@ -1,4 +1,3 @@
-const fs = require('fs')
 const db = require('../models')
 const Restaurant = db.Restaurant
 const User = db.User
@@ -32,7 +31,7 @@ const adminController = {
           address: req.body.address,
           opening_hours: req.body.opening_hours,
           description: req.body.description,
-          image: file ? img.data.link : null,
+          image: file ? img.data.link : null
         }).then((restaurant) => {
           req.flash('success_messages', 'restaurant was successfully created')
           return res.redirect('/admin/restaurants')
@@ -85,7 +84,7 @@ const adminController = {
               address: req.body.address,
               opening_hours: req.body.opening_hours,
               description: req.body.description,
-              image: file ? img.data.link : restaurant.image,
+              image: file ? img.data.link : restaurant.image
             })
               .then((restaurant) => {
                 req.flash('success_messages', 'restaurant was successfully to update')
