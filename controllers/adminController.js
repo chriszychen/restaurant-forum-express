@@ -93,8 +93,7 @@ const adminController = {
               })
           })
       })
-    }
-    else {
+    } else {
       return Restaurant.findByPk(req.params.id)
         .then((restaurant) => {
           restaurant.update({
