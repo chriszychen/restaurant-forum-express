@@ -9,12 +9,12 @@ const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 const adminController = {
   getRestaurants: (req, res) => {
     return Restaurant.findAll({ raw: true, nest: true, include: [Category] }).then(restaurants => {
-      return res.render('admin/restaurants', { restaurants })
+      return res.render('admin/restaurants', { restaurants: restaurants })
     })
   },
   createRestaurant: (req, res) => {
     Category.findAll({ raw: true, nest: true }).then(categories => {
-      return res.render('admin/create', { categories })
+      return res.render('admin/create', { categories: categories })
     })
   },
   postRestaurant: (req, res) => {
@@ -66,7 +66,7 @@ const adminController = {
       return Restaurant.findByPk(req.params.id).then(restaurant => {
         return res.render('admin/create', {
           restaurant: restaurant.toJSON(),
-          categories
+          categories: categories
         })
       })
     })
