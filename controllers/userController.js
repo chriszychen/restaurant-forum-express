@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs')
 const db = require('../models')
 const User = db.User
+const Restaurant = db.Restaurant
+const Comment = db.Comment
 const fs = require('fs')
 const helpers = require('../_helpers.js')
 
@@ -50,8 +52,14 @@ const userController = {
 
   getUser: (req, res) => {
     const sameUser = helpers.getUser(req).id === Number(req.params.id)
-    return User.findByPk(req.params.id)
-      .then(user => res.render('user', { user: user.toJSON(), sameUser: sameUser }))
+    return User.findByPk(req.params.id, {
+      include: [
+        { model: Comment, include: [Restaurant] }
+      ]
+    })
+      .then(user => {
+        res.render('user', { user: user.toJSON(), sameUser: sameUser })
+      })
   },
 
   editUser: (req, res) => {
@@ -97,7 +105,7 @@ const userController = {
         .then(user => {
           user.update({
             name: req.body.name,
-            image: '/upload/user-icon.png'
+            image: 'https://i.imgur.com/oU19cYa.png'
           })
         })
         .then(user => {
