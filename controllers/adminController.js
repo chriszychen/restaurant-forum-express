@@ -49,7 +49,7 @@ const adminController = {
         opening_hours: req.body.opening_hours,
         description: req.body.description,
         image: null,
-        CategoryId: req.body.categoryI
+        CategoryId: req.body.categoryId
       }).then((restaurant) => {
         req.flash('success_messages', 'restaurant was successfully created')
         return res.redirect('/admin/restaurants')

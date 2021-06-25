@@ -1,0 +1,29 @@
+<div class="card mb-3">
+  <div class="row no-gutters">
+    <div class="col-md-4 d-flex justify-content-center">
+      <img {{#if user.image}} src="{{ user.image }}" {{else}} src="https://i.imgur.com/oU19cYa.png" {{/if}}
+        alt="thumbnail" style="display: block; max-width: 350px; max-height: 350px;">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{ user.name }}</h5>
+        <p class="card-text">{{ user.email }}</p>
+        <p class="card-text"><strong>{{ user.Comments.length }}</strong> 已評論餐廳</p>
+        {{#if sameUser}}
+        <a href="/users/{{ user.id }}/edit" class="btn btn-primary">Edit</a>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <p class="card-header"><strong>{{ user.Comments.length }}</strong> 已評論餐廳</p>
+  <div class="card-body d-flex">
+    {{#each user.Comments}}
+    <a href="/restaurants/{{ this.Restaurant.id }}">
+      <div class="image-container mr-3">
+        <img src="{{ this.Restaurant.image }}" alt="restaurant image" height="75" width="75">
+      </div>
+    </a>
+    {{/each}}
+  </div>
