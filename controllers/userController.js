@@ -106,7 +106,7 @@ const userController = {
         .then(user => {
           user.update({
             name: req.body.name,
-            image: 'https://i.imgur.com/oU19cYa.png'
+            image: user.image || 'https://i.imgur.com/oU19cYa.png'
           })
         })
         .then(user => {
