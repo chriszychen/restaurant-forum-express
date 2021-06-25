@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>{{restaurant.name}}</h1>
+    <p>[{{restaurant.Category.name}}]</p>
+    <hr />
+    <ul>
+      <li>評論數：{{ restaurant.Comments.length }}</li>
+      <li>瀏覽次數：N</li>
+      <li>收藏數：N</li>
+    </ul>
+    <button type="button" class="btn btn-link">
+      <a href="javascript:history.back()">
+        回上一頁
+      </a>
+    </button>
+  </div>
+</div>
