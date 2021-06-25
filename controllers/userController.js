@@ -3,8 +3,10 @@ const db = require('../models')
 const User = db.User
 const Restaurant = db.Restaurant
 const Comment = db.Comment
-const fs = require('fs')
 const helpers = require('../_helpers.js')
+
+const imgur = require('imgur-node-api')
+const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 
 const userController = {
   signUpPage: (req, res) => {
@@ -84,21 +86,20 @@ const userController = {
 
     const { file } = req
     if (file) {
-      fs.readFile(file.path, (err, data) => {
-        if (err) console.log('Error: ', err)
-        fs.writeFile(`upload/${file.originalname}`, data, () => {
-          return User.findByPk(req.params.id)
-            .then(user => {
-              user.update({
-                name: req.body.name,
-                image: `/upload/${file.originalname}`
-              })
+      imgur.setClientID(IMGUR_CLIENT_ID)
+      imgur.upload(file.path, (err, img) => {
+        if (err) return console.log(err)
+        return User.findByPk(req.params.id)
+          .then(user => {
+            user.update({
+              name: req.body.name,
+              image: img.data.link
             })
-            .then(user => {
-              req.flash('success_messages', 'user profile was successfully updated')
-              res.redirect(`/users/${req.params.id}`)
-            })
-        })
+          })
+          .then(user => {
+            req.flash('success_messages', 'user profile was successfully updated')
+            res.redirect(`/users/${req.params.id}`)
+          })
       })
     } else {
       return User.findByPk(req.params.id)
