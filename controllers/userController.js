@@ -3,6 +3,7 @@ const db = require('../models')
 const User = db.User
 const Restaurant = db.Restaurant
 const Comment = db.Comment
+const Favorite = db.Favorite
 const helpers = require('../_helpers.js')
 
 const imgur = require('imgur-node-api')
@@ -114,6 +115,29 @@ const userController = {
           res.redirect(`/users/${req.params.id}`)
         })
     }
+  },
+  addFavorite: (req, res) => {
+    return Favorite.create({
+      UserId: req.user.id,
+      RestaurantId: req.params.restaurantId
+    })
+      .then(favorite => {
+        return res.redirect('back')
+      })
+  },
+  removeFavorite: (req, res) => {
+    return Favorite.findOne({
+      where: {
+        UserId: req.user.id,
+        RestaurantId: req.params.restaurantId
+      }
+    })
+      .then(favorite => {
+        return favorite.destroy()
+          .then(fav => {
+            return res.redirect('back')
+          })
+      })
   }
 }
 
