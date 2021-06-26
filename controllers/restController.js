@@ -54,7 +54,10 @@ const restController = {
       ]
     })
       .then(restaurant => {
-        return res.render('restaurant', { restaurant: restaurant.toJSON() })
+        restaurant.increment('viewCounts')
+          .then(restaurant => {
+            return res.render('restaurant', { restaurant: restaurant.toJSON() })
+          })
       })
   },
   getFeeds: (req, res) => {
@@ -79,6 +82,12 @@ const restController = {
         comments: comments
       })
     })
+  },
+  getDashboard: (req, res) => {
+    return Restaurant.findByPk(req.params.id, { include: [Category, Comment] })
+      .then(restaurant => {
+        res.render('dashboard', { restaurant: restaurant.toJSON() })
+      })
   }
 }
 
