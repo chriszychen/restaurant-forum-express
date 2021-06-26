@@ -4,7 +4,7 @@ const User = db.User
 const Restaurant = db.Restaurant
 const Comment = db.Comment
 const Favorite = db.Favorite
-const helpers = require('../_helpers.js')
+const Like = db.Like
 
 const imgur = require('imgur-node-api')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
@@ -54,7 +54,7 @@ const userController = {
   },
 
   getUser: (req, res) => {
-    const sameUser = helpers.getUser(req).id === Number(req.params.id)
+    const sameUser = req.user.id === Number(req.params.id)
     return User.findByPk(req.params.id, {
       include: [
         { model: Comment, include: [Restaurant] }
@@ -66,7 +66,7 @@ const userController = {
   },
 
   editUser: (req, res) => {
-    if (helpers.getUser(req).id !== Number(req.params.id)) {
+    if (req.user.id !== Number(req.params.id)) {
       req.flash('error_messages', 'you have no authority to edit this user\'s profile')
       return res.redirect(`/users/${req.params.id}`)
     }
@@ -75,7 +75,7 @@ const userController = {
   },
 
   putUser: (req, res) => {
-    if (helpers.getUser(req).id !== Number(req.params.id)) {
+    if (req.user.id !== Number(req.params.id)) {
       req.flash('error_messages', 'you have no authority to edit this user\'s profile')
       return res.redirect('back')
     }
@@ -135,6 +135,29 @@ const userController = {
       .then(favorite => {
         return favorite.destroy()
           .then(fav => {
+            return res.redirect('back')
+          })
+      })
+  },
+  likeRestaurant: (req, res) => {
+    return Like.create({
+      UserId: req.user.id,
+      RestaurantId: req.params.restaurantId
+    })
+      .then(like => {
+        return res.redirect('back')
+      })
+  },
+  unlikeRestaurant: (req, res) => {
+    return Like.findOne({
+      where: {
+        UserId: req.user.id,
+        RestaurantId: req.params.restaurantId
+      }
+    })
+      .then(like => {
+        return like.destroy()
+          .then(like => {
             return res.redirect('back')
           })
       })
