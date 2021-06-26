@@ -35,6 +35,9 @@
   <footer class="blockquote-footer">{{fromNow this.createdAt}}</footer>
 </blockquote>
 <hr />
+{{else}}
+<p>暫無評論</p>
+<hr />
 {{/each}}
 
 <form action="/comments" method="POST">
