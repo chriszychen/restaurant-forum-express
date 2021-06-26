@@ -62,7 +62,7 @@ const userController = {
       ]
     })
       .then(user => {
-        res.render('user', { user: user.toJSON(), sameUser: sameUser })
+        res.render('user/profile', { user: user.toJSON(), sameUser: sameUser })
       })
   },
 
@@ -72,7 +72,7 @@ const userController = {
       return res.redirect(`/users/${req.params.id}`)
     }
     return User.findByPk(req.params.id)
-      .then(user => res.render('editUser', { user: user.toJSON() }))
+      .then(user => res.render('user/editProfile', { user: user.toJSON() }))
   },
 
   putUser: (req, res) => {
