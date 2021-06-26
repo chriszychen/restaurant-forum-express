@@ -163,7 +163,7 @@ const userController = {
           })
       })
   },
-  getTopUser: (req, res) => {
+  getTopUsers: (req, res) => {
     return User.findAll({
       include: [
         { model: User, as: 'Followers' }
@@ -176,7 +176,7 @@ const userController = {
           isFollowed: req.user.Followings.map(f => f.id).includes(user.id)
         }))
         users = users.sort((a, b) => b.FollowerCount - a.FollowerCount)
-        return res.render('topUser', { users: users })
+        return res.render('topUsers', { users: users })
       })
   },
   addFollowing: (req, res) => {
