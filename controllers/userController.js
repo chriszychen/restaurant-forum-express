@@ -69,11 +69,13 @@ const userController = {
           return [c.RestaurantId, c.Restaurant]
         })
         const restMap = new Map(data)
+        const isFollowed = req.user.Followings.map(f => f.id).includes(user.id)
         return res.render('user/profile', {
           user: user.toJSON(),
           sameUser: sameUser,
           commentedRestaurants: restMap.values(), // Map values iterator
-          commentedRestCounts: restMap.size // Map pair counts
+          commentedRestCounts: restMap.size, // Map pair counts
+          isFollowed: isFollowed
         })
       })
   },

@@ -14,6 +14,14 @@
         <p class="card-text"><strong>{{ user.Followers.length }}</strong> followers (追隨者)</p>
         {{#if sameUser}}
         <a href="/users/{{ user.id }}/edit" class="btn btn-primary">Edit</a>
+        {{else}}
+        {{#if isFollowed }}
+        <form action="/following/{{ user.id }}?_method=DELETE" method="POST" style="display: contents;"><button type="submit"
+            class="btn btn-danger">取消追蹤</button></form>
+        {{else}}
+        <form action="/following/{{ user.id }}" method="POST" style="display: contents;"><button type="submit"
+            class="btn btn-primary">追蹤</button></form>
+        {{/if}}
         {{/if}}
       </div>
     </div>
