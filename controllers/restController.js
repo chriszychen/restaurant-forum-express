@@ -102,7 +102,6 @@ const restController = {
       ]
     })
       .then(restaurant => {
-        console.log(restaurant.toJSON())
         res.render('dashboard', { restaurant: restaurant.toJSON() })
       })
   },
