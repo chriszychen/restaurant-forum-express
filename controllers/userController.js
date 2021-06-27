@@ -58,11 +58,23 @@ const userController = {
     const sameUser = req.user.id === Number(req.params.id)
     return User.findByPk(req.params.id, {
       include: [
-        { model: Comment, include: [Restaurant] }
+        { model: Comment, include: [Restaurant] },
+        { model: Restaurant, as: 'FavoritedRestaurants' },
+        { model: User, as: 'Followings' },
+        { model: User, as: 'Followers' }
       ]
     })
       .then(user => {
-        res.render('user/profile', { user: user.toJSON(), sameUser: sameUser })
+        const data = user.toJSON().Comments.map(c => {
+          return [c.RestaurantId, c.Restaurant]
+        })
+        const restMap = new Map(data)
+        return res.render('user/profile', {
+          user: user.toJSON(),
+          sameUser: sameUser,
+          commentedRestaurants: restMap.values(), // Map values iterator
+          commentedRestCounts: restMap.size // Map pair counts
+        })
       })
   },
 
