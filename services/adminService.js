@@ -7,6 +7,11 @@ const adminService = {
     return Restaurant.findAll({ raw: true, nest: true, include: [Category] }).then(restaurants => {
       return callback({ restaurants: restaurants })
     })
+  },
+  getRestaurant: (req, res, callback) => {
+    return Restaurant.findByPk(req.params.id, { include: [Category] }).then(restaurant => {
+      return callback({ restaurant: restaurant.toJSON() })
+    })
   }
 }
 
