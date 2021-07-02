@@ -24,6 +24,19 @@ const categoryService = {
           return callback({ status: 'success', message: 'category was successfully created' })
         })
     }
+  },
+  putCategory: (req, res, callback) => {
+    if (!req.body.name) {
+      return callback({ status: 'error', message: "name didn't exist" })
+    } else {
+      return Category.findByPk(req.params.id)
+        .then(category => {
+          category.update(req.body)
+            .then(category => {
+              return callback({ status: 'success', message: 'category was successfully updated' })
+            })
+        })
+    }
   }
 }
 
