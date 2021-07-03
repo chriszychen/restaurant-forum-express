@@ -52,7 +52,7 @@ router.post('/admin/categories', authenticatedAdmin, categoryController.postCate
 router.get('/admin/categories/:id', authenticatedAdmin, categoryController.getCategories)
 router.put('/admin/categories/:id', authenticatedAdmin, categoryController.putCategory)
 router.delete('/admin/categories/:id', authenticatedAdmin, categoryController.deleteCategory)
-// login/logout routes
+// authentication routes
 router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)
 router.get('/signin', userController.signInPage)
