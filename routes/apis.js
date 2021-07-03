@@ -32,6 +32,7 @@ router.get('/admin/categories/:id', authenticated, authenticatedAdmin, categoryC
 router.put('/admin/categories/:id', authenticated, authenticatedAdmin, categoryController.putCategory)
 router.delete('/admin/categories/:id', authenticated, authenticatedAdmin, categoryController.deleteCategory)
 // authentication route
+router.post('/signup', userController.signUp)
 router.post('/signin', userController.signIn)
 
 module.exports = router
